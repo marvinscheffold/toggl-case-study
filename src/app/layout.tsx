@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { AppSidebar } from "@/components/app-sidebar";
+import { SmallScreenNotice } from "@/components/small-screen-notice";
 import { TutorialFooter } from "@/components/tutorial-footer";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -40,14 +41,19 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex h-dvh flex-col overflow-hidden">
-        <TooltipProvider>
-          <div className="flex min-h-0 flex-1">
-            <AppSidebar />
-            <main className="flex-1 overflow-y-auto">{children}</main>
-          </div>
-          <TutorialFooter />
-        </TooltipProvider>
+      <body className="h-dvh overflow-hidden">
+        <div className="flex h-full w-full md:hidden">
+          <SmallScreenNotice />
+        </div>
+        <div className="hidden h-full flex-col md:flex">
+          <TooltipProvider>
+            <div className="flex min-h-0 flex-1">
+              <AppSidebar />
+              <main className="flex-1 overflow-y-auto">{children}</main>
+            </div>
+            <TutorialFooter />
+          </TooltipProvider>
+        </div>
       </body>
     </html>
   );
